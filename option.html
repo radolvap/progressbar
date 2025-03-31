@@ -127,6 +127,34 @@
             };
             localStorage.setItem("progressBarSettings", JSON.stringify(settings));
         }
+function loadSettings() {
+    const settings = JSON.parse(localStorage.getItem("progressBarSettings"));
+    if (settings) {
+        document.getElementById("width").value = settings.width;
+        document.getElementById("height").value = settings.height;
+        document.getElementById("goal").value = settings.goal;
+        document.getElementById("current").value = settings.current;
+        document.getElementById("barColor1").value = settings.barColor1;
+        document.getElementById("barColor2").value = settings.barColor2;
+        document.getElementById("borderColor").value = settings.borderColor;
+        document.getElementById("borderRadius").value = settings.borderRadius;
+        document.getElementById("fontSize").value = settings.fontSize;
+        document.getElementById("textColor").value = settings.textColor;
+        document.getElementById("textOpacity").value = settings.textOpacity;
+        document.getElementById("fontFamily").value = settings.fontFamily;
+
+        updateSize();
+        updateProgress();
+        updateGradient();
+        updateColors();
+        updateBorderRadius();
+        updateTextStyle();
+    }
+}
+
+// Загружаем настройки при старте страницы
+window.onload = loadSettings;
+        
     </script>
 </body>
 </html>
