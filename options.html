@@ -1,0 +1,32 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройки Прогресс-бара</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="settings">
+        <label>Ширина: <input type="number" id="width" value="300"> px</label>
+        <label>Высота: <input type="number" id="height" value="30"> px</label>
+        <br>
+        <label>Цель: <input type="number" id="goal" value="100"></label>
+        <label>Собрано: <input type="number" id="current" value="0"></label>
+        <br>
+        <label>Градиент 1: <input type="color" id="barColor1" value="#4caf50"></label>
+        <label>Градиент 2: <input type="color" id="barColor2" value="#81c784"></label>
+        <label>Цвет границы: <input type="color" id="borderColor" value="#ffffff"></label>
+        <label>Скругление: <input type="number" id="borderRadius" value="10"> px</label>
+        <br>
+        <label>Размер шрифта: <input type="number" id="fontSize" value="16"> px</label>
+        <label>Цвет текста: <input type="color" id="textColor" value="#ffffff"></label>
+        <label>Прозрачность текста: <input type="range" id="textOpacity" min="0" max="1" step="0.1" value="1"></label>
+        <label>Шрифт: <select id="fontFamily">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Courier New">Courier New</option>
+        </select></label>
+    </div>
+</body>
+</html>
