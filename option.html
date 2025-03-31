@@ -55,6 +55,16 @@
             pointer-events: none;
             opacity: 1;
         }
+        .save-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -80,6 +90,8 @@
             <option value="Tahoma">Tahoma</option>
             <option value="Courier New">Courier New</option>
         </select></label>
+        <br>
+        <button class="save-button" onclick="saveSettings()">Сохранить настройки</button>
     </div>
     
     <div class="progress-container-wrapper">
@@ -98,41 +110,22 @@
             document.getElementById("progress-text").textContent = `$${current} / $${goal}`;
         }
 
-        function updateSize() {
-            let width = document.getElementById("width").value + "px";
-            let height = document.getElementById("height").value + "px";
-            let container = document.getElementById("progress-container");
-            container.style.width = width;
-            container.style.height = height;
-        }
-
-        function updateGradient() {
-            let color1 = document.getElementById("barColor1").value;
-            let color2 = document.getElementById("barColor2").value;
-            document.getElementById("progress").style.background = `linear-gradient(to right, ${color1}, ${color2})`;
-        }
-
-        function updateColors() {
-            let borderColor = document.getElementById("borderColor").value;
-            document.getElementById("progress-container").style.borderColor = borderColor;
-        }
-
-        function updateBorderRadius() {
-            let radius = document.getElementById("borderRadius").value + "px";
-            document.getElementById("progress-container").style.borderRadius = radius;
-            document.getElementById("progress").style.borderRadius = radius;
-        }
-
-        function updateTextStyle() {
-            let fontSize = document.getElementById("fontSize").value + "px";
-            let textColor = document.getElementById("textColor").value;
-            let fontFamily = document.getElementById("fontFamily").value;
-            let textOpacity = document.getElementById("textOpacity").value;
-            let textElement = document.getElementById("progress-text");
-            textElement.style.fontSize = fontSize;
-            textElement.style.color = textColor;
-            textElement.style.fontFamily = fontFamily;
-            textElement.style.opacity = textOpacity;
+        function saveSettings() {
+            const settings = {
+                width: document.getElementById("width").value,
+                height: document.getElementById("height").value,
+                goal: document.getElementById("goal").value,
+                current: document.getElementById("current").value,
+                barColor1: document.getElementById("barColor1").value,
+                barColor2: document.getElementById("barColor2").value,
+                borderColor: document.getElementById("borderColor").value,
+                borderRadius: document.getElementById("borderRadius").value,
+                fontSize: document.getElementById("fontSize").value,
+                textColor: document.getElementById("textColor").value,
+                textOpacity: document.getElementById("textOpacity").value,
+                fontFamily: document.getElementById("fontFamily").value
+            };
+            localStorage.setItem("progressBarSettings", JSON.stringify(settings));
         }
     </script>
 </body>
