@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прогресс-бар для OBS</title>
+    <style>
+        body {
+            background: rgba(0, 0, 0, 0);
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+        .settings-container {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            background: #222;
+            color: #fff;
+        }
+        .progress-container-wrapper {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0);
+        }
+        .progress-container {
+            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            border: 2px solid #ffffff;
+            border-radius: 10px;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #4caf50, #81c784);
+            transition: width 0.5s ease-in-out;
+            border-radius: 10px;
+        }
+        .progress-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h2>Настройки</h2>
+        <label>Ширина: <input type="number" id="width" value="300" onchange="updateSize()"> px</label>
+        <label>Высота: <input type="number" id="height" value="30" onchange="updateSize()"> px</label>
+        <br>
+        <label>Цель: <input type="number" id="goal" value="100" onchange="updateProgress()"></label>
+        <label>Собрано: <input type="number" id="current" value="0" onchange="updateProgress()"></label>
+        <br>
+        <label>Градиент 1: <input type="color" id="barColor1" value="#4caf50" onchange="updateGradient()"></label>
+        <label>Градиент 2: <input type="color" id="barColor2" value="#81c784" onchange="updateGradient()"></label>
+        <label>Цвет границы: <input type="color" id="borderColor" value="#ffffff" onchange="updateColors()"></label>
+        <label>Скругление: <input type="number" id="borderRadius" value="10" onchange="updateBorderRadius()"> px</label>
+        <br>
+        <label>Размер шрифта: <input type="number" id="fontSize" value="16" onchange="updateTextStyle()"> px</label>
+        <label>Цвет текста: <input type="color" id="textColor" value="#ffffff" onchange="updateTextStyle()"></label>
+        <label>Прозрачность текста: <input type="range" id="textOpacity" min="0" max="1" step="0.1" value="1" onchange="updateTextStyle()"></label>
+        <label>Шрифт: <select id="fontFamily" onchange="updateTextStyle()">
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Courier New">Courier New</option>
+        </select></label>
+    </div>
+    
+    <div class="progress-container-wrapper">
+        <div class="progress-container" id="progress-container" style="width: 300px; height: 30px;">
+            <div class="progress-bar" id="progress"></div>
+            <div class="progress-text" id="progress-text">$0 / $100</div>
+        </div>
+    </div>
+
+    <script>
+        function updateProgress() {
+            let goal = parseFloat(document.getElementById("goal").value) || 1;
+            let current = parseFloat(document.getElementById("current").value) || 0;
+            let percentage = Math.min((current / goal) * 100, 100);
+            document.getElementById("progress").style.width = percentage + "%";
+            document.getElementById("progress-text").textContent = `$${current} / $${goal}`;
+        }
+
+        function updateSize() {
+            let width = document.getElementById("width").value + "px";
+            let height = document.getElementById("height").value + "px";
+            let container = document.getElementById("progress-container");
+            container.style.width = width;
+            container.style.height = height;
+        }
+
+        function updateGradient() {
+            let color1 = document.getElementById("barColor1").value;
+            let color2 = document.getElementById("barColor2").value;
+            document.getElementById("progress").style.background = `linear-gradient(to right, ${color1}, ${color2})`;
+        }
+
+        function updateColors() {
+            let borderColor = document.getElementById("borderColor").value;
+            document.getElementById("progress-container").style.borderColor = borderColor;
+        }
+
+        function updateBorderRadius() {
+            let radius = document.getElementById("borderRadius").value + "px";
+            document.getElementById("progress-container").style.borderRadius = radius;
+            document.getElementById("progress").style.borderRadius = radius;
+        }
+
+        function updateTextStyle() {
+            let fontSize = document.getElementById("fontSize").value + "px";
+            let textColor = document.getElementById("textColor").value;
+            let fontFamily = document.getElementById("fontFamily").value;
+            let textOpacity = document.getElementById("textOpacity").value;
+            let textElement = document.getElementById("progress-text");
+            textElement.style.fontSize = fontSize;
+            textElement.style.color = textColor;
+            textElement.style.fontFamily = fontFamily;
+            textElement.style.opacity = textOpacity;
+        }
+    </script>
+</body>
+</html>
